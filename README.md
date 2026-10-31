@@ -4,6 +4,23 @@
 
 需求与实现依据见 [docs/FlashSale-开发说明书.html](docs/FlashSale-开发说明书.html)。
 
+## 秒杀链路
+
+```mermaid
+flowchart LR
+    FE["Vue 3 前端"] -->|"POST /api/seckill/{goodsId}"| API["SeckillController"]
+    API --> SVC["SeckillServiceImpl"]
+    SVC -->|"Lua 原子扣减"| R[("Redis 库存 / 防重锁")]
+    SVC -->|"投递消息"| MQ[["RabbitMQ seckill.queue"]]
+    MQ --> CON["SeckillConsumer（手动 ACK）"]
+    CON -->|"条件扣库存"| DB[("MySQL goods")]
+    CON -->|"写订单"| ORD[("order_info / seckill_order")]
+    CON -->|"写结果 Key"| R
+    FE -->|"GET /api/order/result/{goodsId}"| API
+```
+
+Redis 先挡掉绝大多数请求（售罄、库存、一人一单），只有通过 Lua 的请求才进 MQ 异步落库，前端靠轮询结果 Key 拿订单号。
+
 ## 技术栈
 
 - Java 21 / Spring Boot 4.1.0 / Maven
