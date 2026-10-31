@@ -2,7 +2,7 @@
 
 一个学习演示型秒杀系统：Redis 扛瞬时扣减，RabbitMQ 削峰异步落库，Sa-Token 登录鉴权，JMeter 验证不超卖、不重复。
 
-需求与实现依据见 [docs/FlashSale-开发说明书.html](docs/FlashSale-开发说明书.html)。
+需求与实现依据见 [开发说明书（Markdown）](docs/FlashSale-开发说明书.md)，排版版为 [HTML](docs/FlashSale-开发说明书.html)。
 
 ## 秒杀链路
 
@@ -168,7 +168,7 @@ $env:JMETER_HOME = "D:\jmeter\apache-jmeter-5.6.3"
 - 商品列表无 Redis 缓存，`stockCount` 来自 DB
 - 没有 CORS、注册、支付、后台管理、死信队列
 
-以上均为[开发说明书](docs/FlashSale-开发说明书.html)第 14 节列出的真实行为，默认保持原样。
+以上均为[开发说明书](docs/FlashSale-开发说明书.md)第 14 节列出的真实行为，默认保持原样。
 
 ## 相对说明书 v1.0 的修订
 
