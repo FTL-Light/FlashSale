@@ -41,11 +41,18 @@ Redis 先挡掉绝大多数请求（售罄、库存、一人一单），只有�
 
 ```
 FlashSale/
-├── docs/                       # 开发说明书
+├── docs/                       # 开发说明书（Markdown / HTML）
 ├── docker-compose.yml          # 仅 RabbitMQ
 ├── FlashSaleBackend/           # 后端
 ├── FlashSaleFrontend/          # 前端（按说明书第 11 节补建）
-└── jmeter/                     # 压测脚本与数据准备
+├── jmeter/                     # 压测脚本与数据准备
+├── README.md                   # 项目说明
+├── CLAUDE.md                   # 代理 / 环境提示（非业务）
+├── OUTLINE.md                  # 项目大纲（含早期设计口径）
+├── GUIDE.md                    # 使用与开发指南
+├── LEARNING.md                 # 学习笔记
+├── FlashSale-项目面试准备.md    # 面试问答
+└── FlashSale-面试自述话术.md    # 自述话术
 ```
 
 ## 启动
