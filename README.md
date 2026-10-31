@@ -46,11 +46,7 @@ FlashSale/
 ├── FlashSaleBackend/           # 后端
 ├── FlashSaleFrontend/          # 前端（按说明书第 11 节补建）
 ├── jmeter/                     # 压测脚本与数据准备
-├── README.md                   # 项目说明
-├── CLAUDE.md                   # 代理 / 环境提示（非业务）
-├── OUTLINE.md                  # 项目大纲（含早期设计口径）
-├── GUIDE.md                    # 使用与开发指南
-└── LEARNING.md                 # 学习笔记
+└── README.md                   # 项目说明
 ```
 
 ## 启动
