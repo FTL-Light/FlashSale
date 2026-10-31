@@ -50,9 +50,7 @@ FlashSale/
 ├── CLAUDE.md                   # 代理 / 环境提示（非业务）
 ├── OUTLINE.md                  # 项目大纲（含早期设计口径）
 ├── GUIDE.md                    # 使用与开发指南
-├── LEARNING.md                 # 学习笔记
-├── FlashSale-项目面试准备.md    # 面试问答
-└── FlashSale-面试自述话术.md    # 自述话术
+└── LEARNING.md                 # 学习笔记
 ```
 
 ## 启动

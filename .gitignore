@@ -7,3 +7,7 @@ target/
 node_modules/
 dist/
 jmeter/results/
+
+# 本地个人文档，不入库
+FlashSale-项目面试准备.md
+FlashSale-面试自述话术.md
