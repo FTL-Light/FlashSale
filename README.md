@@ -30,6 +30,13 @@ Redis 先挡掉绝大多数请求（售罄、库存、一人一单），只有�
 - Sa-Token 1.44.0（Token 鉴权）
 - 前端 Vue 3 + Vue Router 4 + Axios + Vite
 
+## 界面预览
+
+<!-- 截图放入 docs/screenshots/ 后，取消下一行注释即可显示 -->
+<!-- ![商品列表](docs/screenshots/goods-list.png) -->
+
+截图规范见 [docs/screenshots/README.md](docs/screenshots/README.md)。
+
 ## 目录
 
 ```
