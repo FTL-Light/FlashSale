@@ -53,7 +53,10 @@ INSERT INTO goods (name, title, image, price, seckill_price, stock_count, start_
 VALUES
     ('iPhone 16 Pro', '最新款旗舰手机', '/images/iphone16.jpg', 8999.00, 0.01, 100, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
     ('AirPods Pro 3', '主动降噪耳机', '/images/airpods.jpg', 1999.00, 0.01, 200, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
-    ('iPad Pro M4', 'M4芯片平板', '/images/ipad.jpg', 6799.00, 0.01, 50,  '2025-01-01 00:00:00', '2027-12-31 23:59:59');
+    ('iPad Pro M4', 'M4芯片平板', '/images/ipad.jpg', 6799.00, 0.01, 50,  '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('MacBook Air M3', '轻薄本 13 英寸', '/images/macbook-air.jpg', 8999.00, 0.01, 80,  '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('Apple Watch Ultra 2', '户外运动手表', '/images/watch-ultra.jpg', 6499.00, 0.01, 120, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('HomePod mini', '智能音箱', '/images/homepod-mini.jpg', 749.00, 0.01, 300, '2025-01-01 00:00:00', '2027-12-31 23:59:59');
 
 INSERT INTO user (phone, password, salt, nickname)
 VALUES

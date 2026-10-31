@@ -363,7 +363,7 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;font-si
       <table class="tbl">
         <thead><tr><th style="width:80px">优先级</th><th>能力</th><th>判定标准</th></tr></thead>
         <tbody>
-          <tr><td><span class="tag tag-p0">P0</span></td><td>建库建表 + 种子数据</td><td>4 张表可创建，3 个商品 / 2 个用户可查</td></tr>
+          <tr><td><span class="tag tag-p0">P0</span></td><td>建库建表 + 种子数据</td><td>4 张表可创建，6 个商品 / 2 个用户可查</td></tr>
           <tr><td><span class="tag tag-p0">P0</span></td><td>登录鉴权</td><td>正确密码返回 Token；错误密码/不存在用户返回业务码；受保护接口无 Token 返回 500102</td></tr>
           <tr><td><span class="tag tag-p0">P0</span></td><td>商品列表 / 详情</td><td>返回秒杀价、库存、起止时间、<code>seckillStatus</code></td></tr>
           <tr><td><span class="tag tag-p0">P0</span></td><td>秒杀资格判定与 Redis 扣减</td><td>Lua 一次执行；成功才投递 MQ；失败不投递</td></tr>
@@ -569,7 +569,7 @@ footer{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;font-si
 
     <h3>3.3 启动顺序</h3>
     <ol class="numlist">
-      <li><b>初始化数据库。</b>执行 <code>schema.sql</code>；它会创建 <code>flashsale</code> 库、4 张表、3 个商品、2 个用户。</li>
+      <li><b>初始化数据库。</b>执行 <code>schema.sql</code>；它会创建 <code>flashsale</code> 库、4 张表、6 个商品、2 个用户。</li>
       <li><b>设置密码环境变量。</b>PowerShell：<code>$env:MYSQL_PASSWORD = "你的密码"</code>；bash：<code>export MYSQL_PASSWORD="你的密码"</code>。IDE 运行时加到 Run Configuration 的环境变量。</li>
       <li><b>启动 Redis。</b><code>redis-server</code>，确认 <code>redis-cli PING</code> 返回 <code>PONG</code>。</li>
       <li><b>启动 RabbitMQ。</b>本地安装直接跑 <code>rabbitmq-server.bat</code>；或在本仓库根目录执行 <code>docker compose up -d</code>。</li>
@@ -603,7 +603,7 @@ $login = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/user/logi
   -Body '{"phone":"13800000001","password":"123456"}'
 $token = $login.data
 
-<span class="cm"># 商品列表，应有 3 条</span>
+<span class="cm"># 商品列表，应有 6 条</span>
 Invoke-RestMethod http://localhost:8080/api/goods
 
 <span class="cm"># 秒杀商品 1</span>
@@ -743,7 +743,10 @@ CREATE TABLE IF NOT EXISTS seckill_order (
 VALUES
     ('iPhone 16 Pro', '最新款旗舰手机', '/images/iphone16.jpg', 8999.00, 0.01, 100, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
     ('AirPods Pro 3', '主动降噪耳机', '/images/airpods.jpg', 1999.00, 0.01, 200, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
-    ('iPad Pro M4', 'M4芯片平板', '/images/ipad.jpg', 6799.00, 0.01, 50,  '2025-01-01 00:00:00', '2027-12-31 23:59:59');
+    ('iPad Pro M4', 'M4芯片平板', '/images/ipad.jpg', 6799.00, 0.01, 50,  '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('MacBook Air M3', '轻薄本 13 英寸', '/images/macbook-air.jpg', 8999.00, 0.01, 80,  '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('Apple Watch Ultra 2', '户外运动手表', '/images/watch-ultra.jpg', 6499.00, 0.01, 120, '2025-01-01 00:00:00', '2027-12-31 23:59:59'),
+    ('HomePod mini', '智能音箱', '/images/homepod-mini.jpg', 749.00, 0.01, 300, '2025-01-01 00:00:00', '2027-12-31 23:59:59');
 
 INSERT INTO user (phone, password, salt, nickname)
 VALUES
@@ -2071,7 +2074,7 @@ SELECT COUNT(*) FROM (
           <tr><td>A2</td><td>应用启动 + 库存预热</td><td>设置 <code>MYSQL_PASSWORD</code> 后启动</td><td>日志出现 <code>Started ...</code>；<code>redis-cli GET seckill:stock:1</code> 返回 <code>100</code></td></tr>
           <tr><td>A3</td><td>登录成功</td><td>POST login，正确账号</td><td><code>code=0</code>，<code>data</code> 非空字符串</td></tr>
           <tr><td>A4</td><td>登录失败</td><td>错误密码 / 不存在手机号</td><td><code>500302</code> / <code>500301</code></td></tr>
-          <tr><td>A5</td><td>商品列表</td><td>GET <code>/api/goods</code></td><td>3 条；字段齐全；<code>seckillStatus</code> 为 0/1/2 之一</td></tr>
+          <tr><td>A5</td><td>商品列表</td><td>GET <code>/api/goods</code></td><td>6 条；字段齐全；<code>seckillStatus</code> 为 0/1/2 之一</td></tr>
           <tr><td>A6</td><td>商品详情</td><td>GET <code>/api/goods/1</code></td><td>返回 iPhone 16 Pro；不存在 ID 返回 <code>500101</code></td></tr>
           <tr><td>A7</td><td>首次秒杀</td><td>带 Token POST <code>/api/seckill/1</code></td><td><code>code=0</code>，<code>data="购买成功!正在排队..."</code></td></tr>
           <tr><td>A8</td><td>重复秒杀</td><td>同一用户立即再秒杀</td><td><code>500202</code></td></tr>
@@ -2230,7 +2233,7 @@ Lua 脚本、RabbitMQ 拓扑、JMeter 脚本都必须一致。
 第 4 步：实现 entity、mapper、dto。
 第 5 步：实现 config（Redis/RabbitMQ/Web/ThreadPool）。
 第 6 步：实现 UserService + AuthController，验证登录返回 Token。
-第 7 步：实现 GoodsService + GoodsController，验证 3 条商品与 seckillStatus。
+第 7 步：实现 GoodsService + GoodsController，验证 6 条商品与 seckillStatus。
 第 8 步：实现 SeckillServiceImpl（预热、Lua、MQ 投递、补偿、轮询）。
 第 9 步：实现 SeckillProducer、SeckillConsumer、拦截器。
 第 10 步：启动 MySQL/Redis/RabbitMQ，跑通登录→秒杀→轮询→DB 落库。
@@ -2250,7 +2253,7 @@ Lua 脚本、RabbitMQ 拓扑、JMeter 脚本都必须一致。
           <tr><td>P0</td><td>工程骨架 + 配置</td><td><code>mvnw package</code> 通过；目录与包名一致；yml 可解析</td></tr>
           <tr><td>P1</td><td>数据库</td><td>4 张表存在；3 商品 / 2 用户；<code>user</code> 表名带反引号</td></tr>
           <tr><td>P2</td><td>公共层</td><td><code>Result</code> 序列化为 <code>{code,msg,data}</code>；错误码数值正确</td></tr>
-          <tr><td>P3</td><td>登录 + 商品</td><td>登录返回 token；商品 3 条；详情不存在返回 500101</td></tr>
+          <tr><td>P3</td><td>登录 + 商品</td><td>登录返回 token；商品 6 条；详情不存在返回 500101</td></tr>
           <tr><td>P4</td><td>秒杀主链路</td><td>Redis 库存 100；首次成功；重复 500202；MQ 有消息</td></tr>
           <tr><td>P5</td><td>消费者</td><td>DB 库存 -1；order_info + seckill_order 各 1 条；结果 Key 有 orderId</td></tr>
           <tr><td>P6</td><td>轮询</td><td>先 -1 后 orderId；未登录 500102</td></tr>
@@ -2299,7 +2302,7 @@ Lua 脚本、RabbitMQ 拓扑、JMeter 脚本都必须一致。
 
 二、接口
 [ ] 登录成功 / 失败码正确
-[ ] 商品列表 3 条 / 详情正确
+[ ] 商品列表 6 条 / 详情正确
 [ ] 首次秒杀成功
 [ ] 重复秒杀 500202
 [ ] 轮询 -1 → orderId

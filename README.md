@@ -92,7 +92,7 @@ Invoke-RestMethod -Uri http://localhost:8080/api/order/result/1 `
 | 方法 | 路径 | 鉴权 | 说明 |
 | --- | --- | --- | --- |
 | POST | `/api/user/login` | 否 | 手机号 + 密码，返回 Token |
-| GET | `/api/goods` | 否 | 商品列表（3 条种子数据） |
+| GET | `/api/goods` | 否 | 商品列表（6 条种子数据） |
 | GET | `/api/goods/{goodsId}` | 否 | 商品详情 |
 | POST | `/api/seckill/{goodsId}` | 是 | 秒杀，成功返回“购买成功!正在排队...” |
 | GET | `/api/order/result/{goodsId}` | 是 | 轮询结果，`-1` 排队中，`>0` 订单 ID |
